@@ -18,7 +18,6 @@
 
     function getImages() {
 
-      console.log('Instagram');
       return $http.jsonp(apiHost)
         .then(getImagesComplete)
         .catch(getImagesFailed);

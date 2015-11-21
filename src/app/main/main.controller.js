@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($q, $log, $window, imageToMidi, instagram) {
+  function MainController($q, $log, $window, imageToMidi, instagram, $scope) {
 
     activate();
 
@@ -20,6 +20,8 @@
             soundfontUrl: "assets/soundfont/",
             instrument: "acoustic_grand_piano",
             onsuccess: function() {
+              $scope.sounds = sounds;
+              $scope.$apply();
               sounds.forEach(function(sound) {
                 var delay = sound.time; // play one note every quarter second
                 var note = sound.note; // the MIDI note
@@ -32,7 +34,6 @@
                 $window.MIDI.setVolume(0, 127);
                 $window.MIDI.noteOn(0, note, velocity, delay);
                 $window.MIDI.noteOff(0, note, delay + 0.75);
-
               });
             }
           });
@@ -56,13 +57,12 @@
         return deferred.resolve(img);
       });
 
+      $scope.hash = firstImageUrl;
       return deferred.promise;
     }
 
     function digestInstaImagesFailed() {
-      console.log('digest InstaImages Failed');
+      $log.log('digest InstaImages Failed');
     }
   }
 })();
-
-

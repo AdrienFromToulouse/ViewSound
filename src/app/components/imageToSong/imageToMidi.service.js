@@ -30,7 +30,8 @@
           sound = {
             note: Math.floor(hue * 96 + 1),
             velocity: Math.floor(saturation * 127),
-            time: currentTime
+            time: currentTime,
+            backgroundColor: colorsObj.getHex()
           };
           sounds.push(sound);
           $log.log('hue', hue);
