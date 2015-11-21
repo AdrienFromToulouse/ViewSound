@@ -6,7 +6,7 @@
         <button type="button" name="button" ng-click="nextPic()">NEXT</button>
         <span class="clearfix"></span>
         <div class="color-square-wrap" ng-repeat="sound in sounds">
-          <div class="color-square" style="background-color:{{ sound.backgroundColor }}"></div>
+          <div class="color-square" style="background-color:{{ sound.backgroundColor }}"><span class="letter-note">{{ sound.letterNote }}</span></div>
         </div>
         <img width="100%" ng-src="{{ hash }}" alt="Beautiful instagram image" />
       </div>
