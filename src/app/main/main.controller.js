@@ -27,7 +27,6 @@
                 $window.MIDI.setVolume(0, 127);
                 $window.MIDI.noteOn(0, sound.note, sound.velocity, sound.timeStart);
                 $window.MIDI.noteOff(0, sound.note, sound.timeEnd);
-
               });
             }
           });
@@ -54,6 +53,10 @@
 
     function digestInstaImagesFailed() {
       $log.log('digest InstaImages Failed');
+    }
+
+    $scope.nextPic = function() {
+      activate();
     }
   }
 })();

@@ -7,9 +7,10 @@
 
   /** @ngInject */
   function MidiService() {
+    var audioCtx = new AudioContext();
     var Midi = function(sounds) {
-      var audioCtx = new AudioContext(),
-        distortion = audioCtx.createWaveShaper(),
+
+      var distortion = audioCtx.createWaveShaper(),
         filter = audioCtx.createBiquadFilter(),
         compressor = audioCtx.createDynamicsCompressor();
 
