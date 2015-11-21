@@ -6,14 +6,17 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($q, imageToMidi, instagram) {
+  function MainController($q, $log, imageToMidi, instagram) {
 
     activate();
 
     function activate() {
       instagram.getImages()
         .then(digestInstaImages)
-        .then(imageToMidi.extractProminentColors)
+        .then(imageToMidi.convertColorToMidi)
+        .then(function(sounds) {
+          $log.log('Sounds array', sounds);
+        })
         .catch(digestInstaImagesFailed);
     }
 
@@ -22,7 +25,7 @@
         img = document.createElement('img'),
         deferred = $q.defer();
 
-      console.log(firstImageUrl);
+      $log.log(firstImageUrl);
 
       img.setAttribute('crossOrigin','anonymous');
       //img.setAttribute('src', 'assets/images/protractor.png');
