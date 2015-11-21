@@ -19,7 +19,7 @@
         swatches = vibrant.swatches();
       for (var swatch in swatches) {
         if (swatches.hasOwnProperty(swatch) && swatches[swatch])
-          $log(swatch, swatches[swatch].getHex());
+          $log.log(swatch, swatches[swatch].getHex());
       }
       /*
       * Results into:

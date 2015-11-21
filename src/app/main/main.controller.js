@@ -6,24 +6,32 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(imageToMidi, instagram) {
+  function MainController($q, imageToMidi, instagram) {
 
     activate();
 
     function activate() {
       instagram.getImages()
         .then(digestInstaImages)
+        .then(imageToMidi.extractProminentColors)
         .catch(digestInstaImagesFailed);
     }
 
     function digestInstaImages(images) {
-      console.log(images.data[0].images.standard_resolution.url);
-      var img = document.createElement('img');
-      img.setAttribute('src', images.data[0].images.standard_resolution.url);
+      var firstImageUrl = images.data[0].images.standard_resolution.url,
+        img = document.createElement('img'),
+        deferred = $q.defer();
+
+      console.log(firstImageUrl);
+
+      img.setAttribute('crossOrigin','anonymous');
+      //img.setAttribute('src', 'assets/images/protractor.png');
+      img.setAttribute('src', firstImageUrl);
       img.addEventListener('load', function() {
-        imageToMidi.extractProminentColors(img);
+        return deferred.resolve(img);
       });
 
+      return deferred.promise;
     }
 
     function digestInstaImagesFailed() {
@@ -31,3 +39,5 @@
     }
   }
 })();
+
+
