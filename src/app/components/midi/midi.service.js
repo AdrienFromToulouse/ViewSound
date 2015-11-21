@@ -11,38 +11,40 @@
       var audioCtx = new AudioContext(),
         distortion = audioCtx.createWaveShaper(),
         filter = audioCtx.createBiquadFilter(),
+        envelope = audioCtx.createGain(),
         compressor = audioCtx.createDynamicsCompressor();
 
-      compressor.threshold.value = -50;
+
+      filter.frequency.value = 400;
+
+      compressor.threshold.value = -70;
       compressor.knee.value = 40;
-      compressor.ratio.value = 12;
+      compressor.ratio.value = 52;
       compressor.reduction.value = -20;
       compressor.attack.value = 0;
-      compressor.release.value = 0.75;
+      compressor.release.value = 1;
 
       angular.forEach(sounds, function(sound) {
-        var oscillator = audioCtx.createOscillator(),
-          osc1 = audioCtx.createOscillator(),
-          osc2 = audioCtx.createOscillator();
+        var osc = audioCtx.createOscillator(),
+          osc1 = audioCtx.createOscillator();
 
-        oscillator.type = 'triangle';
+        osc.type = 'sine';
         osc1.type = 'square';
-        osc2.type = 'sawtooth';
-        osc2.frequency.value = osc1.frequency.value = oscillator.frequency.value = frequencyFromNoteNumber(sound.note);
-
-        oscillator.connect(filter);
-        osc1.connect(filter);
-        osc2.connect(filter);
+        osc.frequency.value = osc1.frequency.value = frequencyFromNoteNumber(sound.note);
+        osc.connect(filter);
         filter.connect(distortion);
-        oscillator.detune.value = 400;
-        osc1.detune.value = 6100;
+        osc.detune.value = 600;
+        osc1.detune.value = 5000;
         distortion.connect(compressor);
-        compressor.connect(audioCtx.destination);
+        compressor.connect(envelope);
+        envelope.connect(audioCtx.destination);
 
+        envelope.gain.linearRampToValueAtTime(1.0, sound.timeStart + 0.1 * sound.velocity);
+        envelope.gain.setTargetAtTime(0.68, sound.timeStart + 0.1 * sound.velocity, 0.65);
         osc1.start(audioCtx.currentTime + sound.timeStart);
         osc1.stop(audioCtx.currentTime + sound.timeEnd);
-        oscillator.start(audioCtx.currentTime + sound.timeStart);
-        oscillator.stop(audioCtx.currentTime + sound.timeEnd);
+        osc.start(audioCtx.currentTime + sound.timeStart);
+        osc.stop(audioCtx.currentTime + sound.timeEnd);
       });
 
       function frequencyFromNoteNumber(note) {
