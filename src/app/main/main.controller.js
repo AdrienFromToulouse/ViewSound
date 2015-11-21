@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr, $window) {
+  function MainController($timeout, webDevTec, toastr, $window, MidiService) {
     var vm = this;
 
     vm.awesomeThings = [];
@@ -19,19 +19,20 @@
 
     function activate() {
       getWebDevTec();
-      $window.MIDI.loadPlugin({
-        soundfontUrl: "assets/soundfont/",
-        instrument: "acoustic_grand_piano",
-        onsuccess: function() {
-          var delay = 0; // play one note every quarter second
-          var note = 63; // the MIDI note
-          var velocity = 127; // how hard the note hits
-          // play the note
-          $window.MIDI.setVolume(0, 127);
-          $window.MIDI.noteOn(0, note, velocity, delay);
-          $window.MIDI.noteOff(0, note, delay + 0.75);
-        }
-      });
+      new MidiService();
+      //$window.MIDI.loadPlugin({
+      //  soundfontUrl: "assets/soundfont/",
+      //  instrument: "acoustic_grand_piano",
+      //  onsuccess: function() {
+      //    var delay = 0; // play one note every quarter second
+      //    var note = 63; // the MIDI note
+      //    var velocity = 127; // how hard the note hits
+      //    // play the note
+      //    $window.MIDI.setVolume(0, 127);
+      //    $window.MIDI.noteOn(0, note, velocity, delay);
+      //    $window.MIDI.noteOff(0, note, delay + 0.75);
+      //  }
+      //});
 
       $timeout(function() {
         vm.classAnimation = 'rubberBand';
