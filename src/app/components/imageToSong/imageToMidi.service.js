@@ -14,6 +14,7 @@
     };
 
     function extractProminentColors(image) {
+      $log.log(image);
       var vibrant = new window.Vibrant(image),
         swatches = vibrant.swatches();
       for (var swatch in swatches) {
