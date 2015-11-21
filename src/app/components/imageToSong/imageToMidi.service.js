@@ -3,10 +3,10 @@
 
   angular
     .module('viewSound')
-    .factory('imageToSong', imageToSong);
+    .factory('imageToMidi', imageToMidi);
 
   /** @ngInject */
-  function imageToSong($log) {
+  function imageToMidi($log) {
     $log.log('IT WORKS');
 
     return {

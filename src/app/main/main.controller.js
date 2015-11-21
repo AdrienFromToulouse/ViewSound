@@ -6,11 +6,11 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, imageToSong, toastr) {
+  function MainController($timeout, webDevTec, imageToMidi, toastr) {
     var vm = this,
       image = {};
 
-    imageToSong.extractProminentColors(image);
+    imageToMidi.extractProminentColors(image);
 
     vm.awesomeThings = [];
     vm.classAnimation = '';
