@@ -6,34 +6,22 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr) {
+  function MainController($timeout, webDevTec, toastr, instagram) {
     var vm = this;
-
-    vm.awesomeThings = [];
-    vm.classAnimation = '';
-    vm.creationDate = 1448080223377;
-    vm.showToastr = showToastr;
 
     activate();
 
     function activate() {
-      getWebDevTec();
-      $timeout(function() {
-        vm.classAnimation = 'rubberBand';
-      }, 4000);
+      instagram.getImages()
+        .then(digestInstaImages)
+        .catch(digestInstaImagesFailed);
     }
 
-    function showToastr() {
-      toastr.info('Fork <a href="https://github.com/Swiip/generator-gulp-angular" target="_blank"><b>generator-gulp-angular</b></a>');
-      vm.classAnimation = '';
+    function digestInstaImages(images) {
+      console.log(images.data[0].images.standard_resolution.url);
     }
-
-    function getWebDevTec() {
-      vm.awesomeThings = webDevTec.getTec();
-
-      angular.forEach(vm.awesomeThings, function(awesomeThing) {
-        awesomeThing.rank = Math.random();
-      });
+    function digestInstaImagesFailed() {
+      console.log('digest InstaImages Failed');
     }
   }
 })();
