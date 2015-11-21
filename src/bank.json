@@ -1,0 +1,65 @@
+{
+  "name": "Piano",
+  "samples": [
+    {
+      "noteName": "c3",
+      "midiNumber": 36,
+      "src": "sounds/piano/C.wav"
+    },
+    {
+      "noteName": "c3#",
+      "midiNumber": 37,
+      "src": "sounds/piano/Csharp.wav"
+    },
+    {
+      "noteName": "d3",
+      "midiNumber": 38,
+      "src": "sounds/piano/D.wav"
+    },
+    {
+      "noteName": "d3#",
+      "midiNumber": 39,
+      "src": "sounds/piano/Dsharp.wav"
+    },
+    {
+      "noteName": "e3",
+      "midiNumber": 40,
+      "src": "sounds/piano/E.wav"
+    },
+    {
+      "noteName": "f3",
+      "midiNumber": 41,
+      "src": "sounds/piano/F.wav"
+    },
+    {
+      "noteName": "f3#",
+      "midiNumber": 42,
+      "src": "sounds/piano/Fsharp.wav"
+    },
+    {
+      "noteName": "g3",
+      "midiNumber": 43,
+      "src": "sounds/piano/G.wav"
+    },
+    {
+      "noteName": "g3#",
+      "midiNumber": 44,
+      "src": "sounds/piano/Gsharp.wav"
+    },
+    {
+      "noteName": "a3",
+      "midiNumber": 45,
+      "src": "sounds/piano/A.wav"
+    },
+    {
+      "noteName": "a3#",
+      "midiNumber": 46,
+      "src": "sounds/piano/Asharp.wav"
+    },
+    {
+      "noteName": "b3",
+      "midiNumber": 47,
+      "src": "/app/sounds/piano/B.wav"
+    }
+  ]
+}

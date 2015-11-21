@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr) {
+  function MainController($timeout, $log, webDevTec, toastr, MidiService) {
     var vm = this;
 
     vm.awesomeThings = [];
@@ -14,10 +14,16 @@
     vm.creationDate = 1448080223377;
     vm.showToastr = showToastr;
 
+
+
     activate();
 
     function activate() {
       getWebDevTec();
+      var midi = new MidiService(),
+        source = midi.noteToSound();
+
+      $log.log(source);
       $timeout(function() {
         vm.classAnimation = 'rubberBand';
       }, 4000);
