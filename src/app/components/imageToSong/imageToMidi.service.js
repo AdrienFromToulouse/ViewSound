@@ -18,24 +18,39 @@
       var vibrant = new $window.Vibrant(image, 64, 5),
         swatches = vibrant.swatches(),
         sounds = [],
-        currentTime = 0;
+        currentTime = 0,
+        pixelsAmount = 0,
+        totalDuration = 5; // seconds
 
       for (var swatch in swatches) {
         if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
-          currentTime += 1;
+          pixelsAmount += swatches[swatch].population;
+        }
+      }
+
+      $log.log('pixelsAmount = ' + pixelsAmount);
+
+      for (var swatch in swatches) {
+        if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
           var colorsObj = swatches[swatch],
             hue = colorsObj.hsl[0],
             saturation = colorsObj.hsl[1],
             lightness = colorsObj.hsl[2],
-          sound = {
-            note: Math.floor(hue * 96 + 1),
-            velocity: Math.floor(saturation * 127),
-            time: currentTime,
-            backgroundColor: colorsObj.getHex()
-          };
+            population = colorsObj.population,
+            duration = (population / pixelsAmount) * totalDuration,
+            sound = {
+              note: Math.ceil(hue * 11) * Math.ceil(lightness * 9) + 12,
+              velocity: Math.min(Math.floor(saturation * 127 * 2), 127),
+              timeStart: currentTime,
+              timeEnd: currentTime + duration,
+              backgroundColor: colorsObj.getHex()
+            };
           sounds.push(sound);
-          $log.log('hue', hue);
-          $log.log(swatch, colorsObj);
+
+          currentTime += duration;
+
+          //$log.log(swatch, colorsObj);
+          //$log.log(swatch, sound);
         }
       }
       return sounds;

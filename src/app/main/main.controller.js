@@ -23,22 +23,13 @@
               $scope.sounds = sounds;
               $scope.$apply();
               sounds.forEach(function(sound) {
-                var delay = sound.time; // play one note every quarter second
-                var note = sound.note; // the MIDI note
-                var velocity = sound.velocity; // how hard the note hits
-                // play the note
-                $log.log('velocity', velocity);
-                $log.log('note', note);
-                $log.log('delay', delay);
-
                 $window.MIDI.setVolume(0, 127);
-                $window.MIDI.noteOn(0, note, velocity, delay);
-                $window.MIDI.noteOff(0, note, delay + 0.75);
+                $window.MIDI.noteOn(0, sound.note, sound.velocity, sound.timeStart);
+                $window.MIDI.noteOff(0, sound.note, sound.timeEnd);
+
               });
             }
           });
-
-
         })
         .catch(digestInstaImagesFailed);
     }
@@ -51,7 +42,6 @@
       $log.log(firstImageUrl);
 
       img.setAttribute('crossOrigin', 'anonymous');
-      //img.setAttribute('src', 'assets/images/protractor.png');
       img.setAttribute('src', firstImageUrl);
       img.addEventListener('load', function() {
         return deferred.resolve(img);
