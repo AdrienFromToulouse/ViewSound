@@ -28,7 +28,7 @@
             saturation = colorsObj.hsl[1],
             lightness = colorsObj.hsl[2],
           sound = {
-            note: Math.floor(hue * 96),
+            note: Math.floor(hue * 96 + 1),
             velocity: Math.floor(saturation * 127),
             time: currentTime
           };
