@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($q, $log, $window, imageToMidi, instagram, $scope) {
+  function MainController($q, $log, $window, imageToMidi, instagram, $scope, MidiService) {
 
     activate();
 
@@ -15,6 +15,7 @@
         .then(digestInstaImages)
         .then(imageToMidi.convertColorToMidi)
         .then(function(sounds) {
+          new MidiService(sounds);
           $log.log('Sounds array', sounds);
           $window.MIDI.loadPlugin({
             soundfontUrl: "assets/soundfont/",
